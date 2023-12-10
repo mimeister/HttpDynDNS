@@ -1,0 +1,9 @@
+[Unit]
+Description=Run the Http DynDNS service periodically
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+
+[Install]
+WantedBy=timers.target

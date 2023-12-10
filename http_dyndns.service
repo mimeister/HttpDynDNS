@@ -1,0 +1,9 @@
+[Unit]
+Description=HTTP DynDNS Updater
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/bin/HttpDynDNS.py
+
+[Install]
+WantedBy=default.target
