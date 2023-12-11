@@ -3,6 +3,8 @@
 interface_name="" # i.e. 'eth0'
 cache_file="/tmp/dyndns_cached_ip"
 update_url_template="http://yourupdateservice.com/&myip=<ip6addr>"
+username=""
+password=""
 
 
 # Get the current global IPv6 address
@@ -28,11 +30,11 @@ update_url="${update_url_template//<ip6addr>/$current_ipv6}"
 # Make the call to the update api
 if command -v curl &> /dev/null; then
     # Use curl if available
-    curl -sS "$update_url" >/dev/null
+    curl -sS --user "${username}:${password}" "$modified_url" >/dev/null
     status=$?
 else
     # Use wget as an alternative
-    wget -q -O - "$update_url" >/dev/null
+    wget --user="${username}" --password="${password}" -q -O - "$modified_url" >/dev/null
     status=$?
 fi
 
