@@ -30,11 +30,11 @@ update_url="${update_url_template//<ip6addr>/$current_ipv6}"
 # Make the call to the update api
 if command -v curl &> /dev/null; then
     # Use curl if available
-    curl -sS --user "${username}:${password}" "$modified_url" >/dev/null
+    curl -sS --user "${username}:${password}" "$update_url" >/dev/null
     status=$?
 else
     # Use wget as an alternative
-    wget --user="${username}" --password="${password}" -q -O - "$modified_url" >/dev/null
+    wget --user="${username}" --password="${password}" -q -O - "$update_url" >/dev/null
     status=$?
 fi
 
