@@ -3,7 +3,7 @@ Description=HTTP DynDNS Updater
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /usr/local/bin/HttpDynDNS.py
+ExecStart=/usr/local/bin/HttpDynDNS.sh
 
 [Install]
 WantedBy=default.target

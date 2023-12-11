@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cp HttpDynDNS.py /usr/local/bin/HttpDynDNS.py
+cp HttpDynDNS.sh /usr/local/bin/HttpDynDNS.sh
+chmod +x /usr/local/bin/HttpDynDNS.sh
 cp http_dyndns.* /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable http_dyndns.timer
