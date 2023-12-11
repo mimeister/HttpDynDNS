@@ -8,7 +8,7 @@ password=""
 
 
 # Get the current global IPv6 address
-current_ipv6=$(ip -f inet6 address show scope global $interface_name |  grep -oP '(?<=inet6 )[0-9a-fA-F:]+'
+current_ipv6=$(ip -f inet6 address show scope global $interface_name |  grep -oP '(?<=inet6 )[0-9a-fA-F:]+')
 
 if [ -z "$current_ipv6" ]; then
     echo "Failed to retrieve the current global IPv6 address."
@@ -24,7 +24,7 @@ if [ -e "$cache_file" ]; then
     fi
 fi
 
-# Construct the actual update url using the 
+# Construct the actual update url using the new ip
 update_url="${update_url_template//<ip6addr>/$current_ipv6}"
 
 # Make the call to the update api
