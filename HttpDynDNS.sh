@@ -30,20 +30,20 @@ update_url="${update_url_template//<ip6addr>/$current_ipv6}"
 # Make the call to the update api
 if command -v curl &> /dev/null; then
     # Use curl if available
-    curl -sS --user "${username}:${password}" "$update_url" >/dev/null
-    status=$?
+    response=$(curl -sS -u "${username}:${password}" -w "%{http_code}" "$update_url")
 else
     # Use wget as an alternative
-    wget --user="${username}" --password="${password}" -q -O - "$update_url" >/dev/null
-    status=$?
+    response=$(wget --user="${username}" --password="${password}" -q -O - "$update_url" --server-response 2>&1 | awk '/^  HTTP/{print $2}')
 fi
 
-if [ $status -eq 0 ]; then
+http_status=$(echo "$response" | tail -n 1)
+
+if [ "$http_status" == "200" ]; then
     # Create/overwrite the cache file
     echo "$current_ipv6" > "$cache_file"
     echo "Update request successful with new IPv6 address $current_ipv6."
 else
-    echo "Update request failed with status code $status."
+    echo "Update request failed with status code $http_status."
     exit 1
 fi
 
